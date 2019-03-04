@@ -7,7 +7,7 @@ process.argv.push(
     '--inline',
     '--progress',
     '--config',
-    path.resolve(process.cwd(), 'node_modules', '@am', 'vue-tools', 'config', 'webpack', 'dev')
+    path.resolve(process.cwd(), 'node_modules', 'am-vue-tools', 'config', 'webpack', 'dev')
 );
 
 console.log(`[@am/vue-tools] Running ${chalk.blue('vue')} webpack config for ${chalk.yellow('development')}`);
