@@ -1,17 +1,19 @@
 const isPro = require('node-env-tools').isPro();
+const config = require('../index');
 const path = require('path');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
     mode    : isPro ? 'production' : 'development',
+    devtool : config.devtool,
     entry   : {
         app : './src/index.js'
     },
     output : {
         filename    : '[name].js',
-        path        : path.resolve(isPro ? 'dist' : 'build'),
-        publicPath  : '/'
+        path        : config.assetsRoot,
+        publicPath  : config.assetsPublicPath
     },
     resolve : {
         symlinks : false,

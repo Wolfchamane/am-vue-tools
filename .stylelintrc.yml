@@ -1,3 +1,441 @@
 plugins:
-    - stylelint-selector-bem-pattern
-    - stylelint-order
+    - stylelint-order                                           # https://github.com/hudochenkov/stylelint-order
+    - stylelint-csstree-validator                               # https://github.com/csstree/stylelint-validator
+    - stylelint-color-format                                    # https://github.com/filipekiss/stylelint-color-format
+    - stylelint-selector-bem-pattern                            # https://github.com/simonsmith/stylelint-selector-bem-pattern
+
+rules:                                                          # https://stylelint.io/user-guide/rules/
+    # Color
+    color-no-invalid-hex: true                                  # Disallow invalid hex colors.
+    # Font family
+    font-family-no-duplicate-names: true	                    # Disallow duplicate font family names.
+    font-family-no-missing-generic-family-keyword: true	        # Disallow missing generic families in lists of font family names.
+    # Function
+    #    function-calc-no-invalid: false	                        # Disallow an invalid expression within calc functions.
+    function-calc-no-unspaced-operator: true	                # Disallow an unspaced operator within calc functions.
+    function-linear-gradient-no-nonstandard-direction: true	    # Disallow direction values in linear-gradient() calls that are not valid according to the standard syntax.
+    # String
+    string-no-newline: true	                                    # Disallow (unescaped) newlines in strings.
+    # Unit
+    unit-no-unknown: true                                       # Disallow unknown units.
+    # Property
+    property-no-unknown: true	                                # Disallow unknown properties.
+    # Keyframe declaration
+    keyframe-declaration-no-important: true	                    # Disallow !important within keyframe declarations.
+    # Declaration block
+    declaration-block-no-duplicate-properties: true	            # Disallow duplicate properties within declaration blocks.
+    declaration-block-no-shorthand-property-overrides: true	    # Disallow shorthand properties that override related longhand properties within declaration blocks.
+    # Block
+    block-no-empty: true	                                    # Disallow empty blocks.
+    # Selector
+    selector-pseudo-class-no-unknown: true	                    # Disallow unknown pseudo-class selectors.
+    selector-pseudo-element-no-unknown: true	                # Disallow unknown pseudo-element selectors.
+    selector-type-no-unknown: true	                            # Disallow unknown type selectors.
+    # Media feature
+    media-feature-name-no-unknown: true	                        # Disallow unknown media feature names.
+    # At-rule
+    at-rule-no-unknown: true	                                # Disallow unknown at-rules.
+    # Comment
+    comment-no-empty: true	                                    # Disallow empty comments.
+    # General / Sheet
+    no-descending-specificity: true	                            # Disallow selectors of lower specificity from coming after overriding selectors of higher specificity.
+    no-duplicate-at-import-rules: true	                        # Disallow duplicate @import rules within a stylesheet.
+    no-duplicate-selectors: true	                            # Disallow duplicate selectors.
+    no-empty-source: true	                                    # Disallow empty sources.
+    no-extra-semicolons: true	                                # Disallow extra semicolons (Autofixable).
+    #    no-invalid-double-slash-comments: false	                # Disallow double-slash comments (//...) which are not supported by CSS.
+    # Limit language features
+    ## Color
+    color-named: 'never'	                                    # Require (where possible) or disallow named colors.
+    color-no-hex: true	                                        # Disallow hex colors.
+    ## Function
+    #    function-blacklist: ''	                                    # Specify a blacklist of disallowed functions.
+    function-url-no-scheme-relative: true	                    # Disallow scheme-relative urls.
+    function-url-scheme-blacklist:                              # Specify a blacklist of disallowed url schemes.
+        - ftp
+        - http
+        - https
+    #    function-url-scheme-whitelist: ''	                        # Specify a whitelist of allowed url schemes.
+    #    function-whitelist: ''                                     # Specify a whitelist of allowed functions.
+    ## Keyframes
+    #    keyframes-name-pattern: ''	                                # Specify a pattern for keyframe names.
+    ## Number
+    number-max-precision: 3	                                    # Limit the number of decimal places allowed in numbers.
+    ## Time
+    time-min-milliseconds: 100	                                # Specify the minimum number of milliseconds for time values.
+    ## Unit
+    #    unit-blacklist: ''	                                        # Specify a blacklist of disallowed units.
+    #    unit-whitelist: ''	                                        # Specify a whitelist of allowed units.
+    ## Shorthand property
+    shorthand-property-no-redundant-values: true	            # Disallow redundant values in shorthand properties (Autofixable).
+    ## Value
+    value-no-vendor-prefix: true	                            # Disallow vendor prefixes for values.
+    ## Custom property
+    custom-property-pattern: '[a-z\-]+'	                        # Specify a pattern for custom properties.
+    ## Property
+    property-blacklist: 'font-weight'	                        # Specify a blacklist of disallowed properties.
+    property-no-vendor-prefix: true	                            # Disallow vendor prefixes for properties.
+    #    property-whitelist: true	                                # Specify a whitelist of allowed properties.
+    ## Declaration
+    #    declaration-block-no-redundant-longhand-properties: false	# Disallow longhand properties that can be combined into one shorthand property.
+    declaration-no-important: true	                            # Disallow !important within declarations.
+    declaration-property-unit-blacklist:	                    # Specify a blacklist of disallowed property and unit pairs within declarations.
+        - transform: 'px'
+        - margin: 'px'
+        - padding: 'px'
+        - left: 'px'
+        - top: 'px'
+    #    declaration-property-unit-whitelist: true	                # Specify a whitelist of allowed property and unit pairs within declarations.
+    declaration-property-value-blacklist:                       # Specify a blacklist of disallowed property and value pairs within declarations.
+        - transform:
+              - scale3d
+              - rotate3d
+              - translate3d
+    #    declaration-property-value-whitelist: true	                # Specify a whitelist of allowed property and value pairs within declarations.
+    ## Declaration block
+    declaration-block-single-line-max-declarations: 1	        # Limit the number of declarations within single line declaration blocks.
+    ## Selector
+    #    selector-attribute-operator-blacklist: true	            # Specify a blacklist of disallowed attribute operators.
+    #    selector-attribute-operator-whitelist: true	            # Specify a whitelist of allowed attribute operators.
+    #    selector-class-pattern: true	                            # Specify a pattern for class selectors.
+    #    selector-combinator-blacklist: true	                    # Specify a blacklist of disallowed combinators.
+    #    selector-combinator-whitelist: true	                    # Specify a whitelist of allowed combinators.
+    selector-id-pattern: '.+'	                                # Specify a pattern for ID selectors.
+    selector-max-attribute: 4	                                # Limit the number of attribute selectors in a selector.
+    selector-max-class: 2	                                    # Limit the number of classes in a selector.
+    #    selector-max-combinators: true	                            # Limit the number of combinators in a selector.
+    selector-max-compound-selectors: 3	                        # Limit the number of compound selectors in a selector.
+    selector-max-empty-lines: 0	                                # Limit the number of adjacent empty lines within selectors.
+    selector-max-id: 0	                                        # Limit the number of ID selectors in a selector.
+    selector-max-pseudo-class: 3	                            # Limit the number of pseudo-classes in a selector.
+    selector-max-specificity: '0,3,0'                           # Limit the specificity of selectors.
+    selector-max-type: 0	                                    # Limit the number of type in a selector.
+    selector-max-universal: 0	                                # Limit the number of universal selectors in a selector.
+    #    selector-nested-pattern: true	                            # Specify a pattern for the selectors of rules nested within rules.
+    selector-no-qualifying-type: true	                        # Disallow qualifying a selector by type.
+    selector-no-vendor-prefix: true	                            # Disallow vendor prefixes for selectors.
+    #    selector-pseudo-class-blacklist: true	                    # Specify a blacklist of disallowed pseudo-class selectors.
+    #    selector-pseudo-class-whitelist: true	                    # Specify a whitelist of allowed pseudo-class selectors.
+    #    selector-pseudo-element-blacklist: true	                # Specify a blacklist of disallowed pseudo-element selectors.
+    #    selector-pseudo-element-whitelist: true	                # Specify a whitelist of allowed pseudo-element selectors.
+    ## Media feature
+    #    media-feature-name-blacklist: true	                        # Specify a blacklist of disallowed media feature names.
+    media-feature-name-no-vendor-prefix: true	                # Disallow vendor prefixes for media feature names.
+    #    media-feature-name-value-whitelist: true	                # Specify a whitelist of allowed media feature name and value pairs.
+    #    media-feature-name-whitelist: true	                        # Specify a whitelist of allowed media feature names.
+    ## Custom media
+    #    custom-media-pattern: true	                                # Specify a pattern for custom media query names.
+    ## At-rule
+    #    at-rule-blacklist: true	                                # Specify a blacklist of disallowed at-rules.
+    at-rule-no-vendor-prefix: true	                            # Disallow vendor prefixes for at-rules.
+    #    at-rule-whitelist: true	                                # Specify a whitelist of allowed at-rules.
+    ## Comment
+    #    comment-word-blacklist: true	                            # Specify a blacklist of disallowed words within comments.
+    ## General / Sheet
+    max-nesting-depth: 3	                                    # Limit the depth of nesting.
+    no-unknown-animations: true	                                # Disallow unknown animations.
+    # Stylistic issues
+    ## Color
+    #    color-hex-case: true	                                    # Specify lowercase or uppercase for hex colors (Autofixable).
+    #    color-hex-length: true	                                    # Specify short or long notation for hex colors (Autofixable).
+    ## Font family
+    font-family-name-quotes: 'always-unless-keyword'            # Specify whether or not quotation marks should be used around font family names.
+    ## Font weight
+    #    font-weight-notation: true	                                # Require numeric or named (where possible) font-weight values.
+    ## Function
+    function-comma-newline-after: 'never-multi-line'            # Require a newline or disallow whitespace after the commas of functions (Autofixable).
+    function-comma-newline-before: 'never-multi-line'           # Require a newline or disallow whitespace before the commas of functions (Autofixable).
+    function-comma-space-after: 'always'                        # Require a single space or disallow whitespace after the commas of functions (Autofixable).
+    function-comma-space-before: 'never'                        # Require a single space or disallow whitespace before the commas of functions (Autofixable).
+    function-max-empty-lines: 0 	                            # Limit the number of adjacent empty lines within functions (Autofixable).
+    function-name-case: 'lower'	                                # Specify lowercase or uppercase for function names (Autofixable).
+    function-parentheses-newline-inside: 'never-multi-line'     # Require a newline or disallow whitespace on the inside of the parentheses of functions (Autofixable).
+    function-parentheses-space-inside: 'never'                  # Require a single space or disallow whitespace on the inside of the parentheses of functions (Autofixable).
+    function-url-quotes: 'always'	                            # Require or disallow quotes for urls.
+    function-whitespace-after: 'always'	                        # Require or disallow whitespace after functions (Autofixable).
+    ## Number
+    number-leading-zero: 'never'                                # Require or disallow a leading zero for fractional numbers less than 1 (Autofixable).
+    number-no-trailing-zeros: true	                            # Disallow trailing zeros in numbers (Autofixable).
+    ## String
+    string-quotes: 'single'                                     # Specify single or double quotes around strings (Autofixable).
+    ## Length
+    length-zero-no-unit: true	                                # Disallow units for zero lengths (Autofixable).
+    ## Unit
+    unit-case: 'lower'                                          # Specify lowercase or uppercase for units (Autofixable).
+    ## Value
+    value-keyword-case: 'lower'	                                # Specify lowercase or uppercase for keywords values (Autofixable).
+    ## Value list
+    value-list-comma-newline-after: 'never-multi-line'          # Require a newline or disallow whitespace after the commas of value lists (Autofixable).
+    value-list-comma-newline-before: 'never-multi-line'         # Require a newline or disallow whitespace before the commas of value lists.
+    value-list-comma-space-after: 'always'	                    # Require a single space or disallow whitespace after the commas of value lists (Autofixable).
+    value-list-comma-space-before: 'never'	                    # Require a single space or disallow whitespace before the commas of value lists (Autofixable).
+    value-list-max-empty-lines: 0	                            # Limit the number of adjacent empty lines within value lists (Autofixable).
+    ## Custom property
+    custom-property-empty-line-before: 'never'	                # Require or disallow an empty line before custom properties (Autofixable).
+    ## Property
+    property-case: 'lower'	                                    # Specify lowercase or uppercase for properties (Autofixable).
+    ## Declaration
+    declaration-bang-space-after: 'never'	                    # Require a single space or disallow whitespace after the bang of declarations (Autofixable).
+    declaration-bang-space-before: 'always'	                    # Require a single space or disallow whitespace before the bang of declarations (Autofixable).
+    #    declaration-colon-newline-after: true	                    # Require a newline or disallow whitespace after the colon of declarations (Autofixable).
+    declaration-colon-space-after: 'always'	                    # Require a single space or disallow whitespace after the colon of declarations (Autofixable).
+    declaration-colon-space-before: 'never'	                    # Require a single space or disallow whitespace before the colon of declarations (Autofixable).
+    declaration-empty-line-before: 'never'	                    # Require or disallow an empty line before declarations (Autofixable).
+    ## Declaration block
+    #    declaration-block-semicolon-newline-after: true	        # Require a newline or disallow whitespace after the semicolons of declaration blocks (Autofixable).
+    #    declaration-block-semicolon-newline-before: true	        # Require a newline or disallow whitespace before the semicolons of declaration blocks.
+    #    declaration-block-semicolon-space-after: true	            # Require a single space or disallow whitespace after the semicolons of declaration blocks (Autofixable).
+    #    declaration-block-semicolon-space-before: true	            # Require a single space or disallow whitespace before the semicolons of declaration blocks (Autofixable).
+    #    declaration-block-trailing-semicolon: true	                # Require or disallow a trailing semicolon within declaration blocks (Autofixable).
+    ## Block
+    #    block-closing-brace-empty-line-before: false               # Require or disallow an empty line before the closing brace of blocks (Autofixable).
+    #    block-closing-brace-newline-after: false                   # Require a newline or disallow whitespace after the closing brace of blocks (Autofixable).
+    #    block-closing-brace-newline-before: false                  # Require a newline or disallow whitespace before the closing brace of blocks (Autofixable).
+    #    block-closing-brace-space-after: false	                    # Require a single space or disallow whitespace after the closing brace of blocks.
+    #    block-closing-brace-space-before: false	                # Require a single space or disallow whitespace before the closing brace of blocks (Autofixable).
+    #    block-opening-brace-newline-after: false                   # Require a newline after the opening brace of blocks (Autofixable).
+    #    block-opening-brace-newline-before: false	                # Require a newline or disallow whitespace before the opening brace of blocks (Autofixable).
+    #    block-opening-brace-space-after: false	                    # Require a single space or disallow whitespace after the opening brace of blocks (Autofixable).
+    #    block-opening-brace-space-before: false	                # Require a single space or disallow whitespace before the opening brace of blocks (Autofixable).
+    ## Selector
+    selector-attribute-brackets-space-inside: 'never'	        # Require a single space or disallow whitespace on the inside of the brackets within attribute selectors (Autofixable).
+    selector-attribute-operator-space-after: 'never'	        # Require a single space or disallow whitespace after operators within attribute selectors (Autofixable).
+    selector-attribute-operator-space-before: 'never'	        # Require a single space or disallow whitespace before operators within attribute selectors (Autofixable).
+    selector-attribute-quotes: 'always'	                        # Require or disallow quotes for attribute values.
+    selector-combinator-space-after: 'always'	                # Require a single space or disallow whitespace after the combinators of selectors (Autofixable).
+    selector-combinator-space-before: 'never'	                # Require a single space or disallow whitespace before the combinators of selectors (Autofixable).
+    selector-descendant-combinator-no-non-space: true	        # Disallow non-space characters for descendant combinators of selectors (Autofixable).
+    selector-pseudo-class-case: 'lower'                         # Specify lowercase or uppercase for pseudo-class selectors (Autofixable).
+    selector-pseudo-class-parentheses-space-inside: 'never'	    # Require a single space or disallow whitespace on the inside of the parentheses within pseudo-class selectors (Autofixable).
+    selector-pseudo-element-case: 'lower'                       # Specify lowercase or uppercase for pseudo-element selectors.
+    selector-pseudo-element-colon-notation: 'double'            # Specify single or double colon notation for applicable pseudo-elements (Autofixable).
+    selector-type-case: 'lower'	                                # Specify lowercase or uppercase for type selector (Autofixable).
+    ## Selector list
+    selector-list-comma-newline-after: 'always-multi-line'      # Require a newline or disallow whitespace after the commas of selector lists (Autofixable).
+    selector-list-comma-newline-before: 'never-multi-line'      # Require a newline or disallow whitespace before the commas of selector lists (Autofixable).
+    selector-list-comma-space-after: 'always'	                # Require a single space or disallow whitespace after the commas of selector lists (Autofixable).
+    selector-list-comma-space-before: 'never'                   # Require a single space or disallow whitespace before the commas of selector lists (Autofixable).
+    ## Rule
+    rule-empty-line-before:
+        - 'always'                                              # Require or disallow an empty line before rules (Autofixable).
+        - except: 'inside-block'
+    ## Media feature
+    media-feature-colon-space-after: 'always'                   # Require a single space or disallow whitespace after the colon in media features (Autofixable).
+    media-feature-colon-space-before: 'never'                   # Require a single space or disallow whitespace before the colon in media features (Autofixable).
+    media-feature-name-case: 'lower'                            # Specify lowercase or uppercase for media feature names (Autofixable).
+    media-feature-parentheses-space-inside: 'never'	            # Require a single space or disallow whitespace on the inside of the parentheses within media features (Autofixable).
+    media-feature-range-operator-space-after: 'always'          # Require a single space or disallow whitespace after the range operator in media features (Autofixable).
+    media-feature-range-operator-space-before: 'never'          # Require a single space or disallow whitespace before the range operator in media features (Autofixable).
+    ## Media query list
+    media-query-list-comma-newline-after: 'never-multi-line'    # Require a newline or disallow whitespace after the commas of media query lists (Autofixable).
+    media-query-list-comma-newline-before: 'never-multi-line'   # Require a newline or disallow whitespace before the commas of media query lists.
+    media-query-list-comma-space-after: 'always'                # Require a single space or disallow whitespace after the commas of media query lists (Autofixable).
+    media-query-list-comma-space-before: 'never'                # Require a single space or disallow whitespace before the commas of media query lists (Autofixable).
+    ## At-rule
+    at-rule-empty-line-before: 'always'	                        # Require or disallow an empty line before at-rules (Autofixable).
+    at-rule-name-case: 'lower'	                                # Specify lowercase or uppercase for at-rules names (Autofixable).
+    #    at-rule-name-newline-after: 'never'	                    # Require a newline after at-rule names.
+    at-rule-name-space-after: 'always'	                        # Require a single space after at-rule names (Autofixable).
+    #    at-rule-semicolon-newline-after: true	                    # Require a newline after the semicolon of at-rules (Autofixable).
+    #    at-rule-semicolon-space-before: true	                    # Require a single space or disallow whitespace before the semicolons of at rules.
+    ## Comment
+    comment-empty-line-before: 'always'	                        # Require or disallow an empty line before comments (Autofixable).
+    comment-whitespace-inside: 'always'	                        # Require or disallow whitespace on the inside of comment markers (Autofixable).
+    ## General / Sheet
+    indentation: 4	                                            # Specify indentation (Autofixable).
+    linebreaks: 'unix'	                                        # Specify unix or windows linebreaks (Autofixable).
+    max-empty-lines: 2	                                        # Limit the number of adjacent empty lines.
+    max-line-length: 120	                                    # Limit the length of a line.
+    no-eol-whitespace: true	                                    # Disallow end-of-line whitespace (Autofixable).
+    no-missing-end-of-source-newline: true	                    # Disallow missing end-of-source newlines (Autofixable).
+    #    no-empty-first-line: false	                                # Disallow empty first lines. (Autofixable).
+
+    # PLUGINS
+
+    ## tree validator
+    csstree/validator: true
+
+    ## bem
+    plugin/selector-bem-pattern:
+        componentName: '[a-z\-]+'
+        componentSelectors: '^\\.{componentName}(?:[_-]{2}[a-z\-]+)$'
+
+    ## color format
+    color-format/format:
+        format: 'rgba'
+
+    ## properties order
+    order/properties-order:
+        # Box
+
+        - display
+        - flex
+        - flex-basis
+        - flex-direction
+        - flex-flow
+        - flex-grow
+        - flex-shrink
+        - flex-wrap
+        - align-content
+        - align-items
+        - align-self
+        - justify-content
+        - order
+
+        - position
+        - top
+        - right
+        - bottom
+        - left
+        - z-index
+
+        - width
+        - min-width
+        - max-width
+
+        - height
+        - min-height
+        - max-height
+
+        - margin
+        - margin-top
+        - margin-right
+        - margin-bottom
+        - margin-left
+
+        - padding
+        - padding-top
+        - padding-right
+        - padding-bottom
+        - padding-left
+
+        - float
+        - clear
+
+        - columns
+        - column-gap
+        - column-fill
+        - column-rule
+        - column-span
+        - column-count
+        - column-width
+
+        # Border
+
+        - border
+        - border-top
+        - border-right
+        - border-bottom
+        - border-left
+        - border-width
+        - border-top-width
+        - border-right-width
+        - border-bottom-width
+        - border-left-width
+
+        - border-style
+        - border-top-style
+        - border-right-style
+        - border-bottom-style
+        - border-left-style
+
+        - border-radius
+        - border-top-left-radius
+        - border-top-right-radius
+        - border-bottom-left-radius
+        - border-bottom-right-radius
+
+        - border-color
+        - border-top-color
+        - border-right-color
+        - border-bottom-color
+        - border-left-color
+
+        - outline
+        - outline-color
+        - outline-offset
+        - outline-style
+        - outline-width
+
+        # Text
+
+        - color
+
+        - font
+        - font-family
+        - font-size
+        - font-smoothing
+        - font-style
+        - font-variant
+        - font-weight
+
+        - letter-spacing
+        - line-height
+        - list-style
+
+        - text-align
+        - text-decoration
+        - text-indent
+        - text-overflow
+        - text-rendering
+        - text-shadow
+        - text-transform
+        - text-wrap
+
+        - white-space
+        - word-spacing
+
+        # Background
+
+        - background
+        - background-attachment
+        - background-clip
+        - background-color
+        - background-image
+        - background-repeat
+        - background-position
+        - background-size
+
+        # Transform
+
+        - transform
+        - transform-box
+        - transform-origin
+        - transform-style
+
+        # Transition
+
+        - transition
+        - transition-delay
+        - transition-duration
+        - transition-property
+        - transition-timing-function
+
+        # Animation
+
+        - animation
+        - animation-name
+        - animation-duration
+        - animation-timing-function
+        - animation-delay
+        - animation-iteration-count
+        - animation-direction
+        - animation-fill-mode
+        - animation-play-state
+
+        # Other
+
+        - border-collapse
+        - border-spacing
+        - box-shadow
+        - caption-side
+        - content
+        - cursor
+        - empty-cells
+        - opacity
+        - overflow
+        - quotes
+        - speak
+        - table-layout
+        - vertical-align
+        - visibility

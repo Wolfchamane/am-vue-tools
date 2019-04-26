@@ -1,12 +1,12 @@
-const config = require('./base');
+const config = require('../index');
+const base = require('./base');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
-config.devtool = 'cheap-module-eval-source-map';
-
-config.devServer = {
+base.devServer = {
     clientLogLevel     : 'warning',
     contentBase        : false,
     compress           : true,
@@ -14,7 +14,7 @@ config.devServer = {
         rewrites : [
             {
                 from : /.*/,
-                to   : path.posix.join('/', 'index.html')
+                to   : path.posix.join(config.assetsPublicPath, 'index.html')
             }
         ]
     },
@@ -26,7 +26,7 @@ config.devServer = {
         warnings : false,
         errors   : true
     },
-    publicPath   : '/',
+    publicPath   : config.assetsPublicPath,
     proxy        : {},
     quiet        : true, // Necesario para FriendlyErrorsPlugin
     watchOptions : {
@@ -34,7 +34,7 @@ config.devServer = {
     }
 };
 
-config.plugins = config.plugins.concat([
+base.plugins = base.plugins.concat([
     new FriendlyErrorsWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
@@ -43,7 +43,14 @@ config.plugins = config.plugins.concat([
         filename : 'index.html',
         template : 'index.html',
         inject   : true
-    })
+    }),
+    new CopyWebpackPlugin([
+        {
+            from   : path.resolve('static'),
+            to     : config.assetsSubDirectory,
+            ignore : ['.*']
+        }
+    ])
 ]);
 
-module.exports = config;
+module.exports = base;
